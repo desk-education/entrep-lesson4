@@ -25,14 +25,14 @@
         let activeShuffledQuiz = [];
 
         // Helper to toggle pa55code visibility
-        function togglePasswordVisibility(inputId, eyeIconId) {
+        function toggleAccessVisibility(inputId, eyeIconId) {
             const input = document.getElementById(inputId);
             const eye = document.getElementById(eyeIconId);
-            if (input.type === 'password') {
+            if (input.type === 'text') {
                 input.type = 'text';
                 eye.className = "fa-solid fa-eye-slash";
             } else {
-                input.type = 'password';
+                input.type = 'text';
                 eye.className = "fa-solid fa-eye";
             }
         }
