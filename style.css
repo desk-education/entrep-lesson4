@@ -37,19 +37,3 @@ body {
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-
-        /* ------------------------------------------------------------- */
-        /* DONATION FEATURE CUSTOM STYLING (PREFIX: donation-)           */
-        /* ------------------------------------------------------------- */
-        .donation-modal-overlay {
-            background-color: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(6px);
-            transition: opacity 0.3s ease-in-out;
-        }
-        .donation-badge-gcash {
-            background-color: #007dfe;
-            color: #ffffff;
-        }
-        .donation-card-border {
-            border: 1px solid rgba(59, 130, 246, 0.25);
-        }
