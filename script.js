@@ -1,38 +1,55 @@
 // -------------------------------------------------------------
         // CONFIGURATION OBJECTS
         // -------------------------------------------------------------
-        const DONATION_CONFIG = {
-            GCASH_NUMBER: "0968-7042-059",
-            // REPLACE THIS URL WITH YOUR DEPLOYED EXAMSHUFFLE PRO WEB APP URL
-            GOOGLE_APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwa7PURy-pOOsxWuYtM7M4PtDh7Ka1wPI5f6UcecUaagR2LUQj9tTR2AhdSk_BJu9Wwww/exec"
-        };
-
         const QUIZ_SYNC_CONFIG = {
-            TEACHER_ACCESS_CODE: "access1234",
+            TEACHER_ACCESS_CODE_HASH: "51d661e8997ed17128eb6531a0a4e24a54decbae441c4ec60c16b7a0306745bc",
             // REPLACE THIS URL WITH YOUR DEPLOYED QUIZ SCORES WEB APP URL
             GOOGLE_APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyuH5psGWv2Z4BVNgJUVA1IPK-KejI-o0o8uqsj3yrYyvnQ3At3b1rNpGnkjGPF16--6Q/exec",
             COOLDOWN_MS: 5 * 60 * 1000 // 5 Minutes restriction in milliseconds
         };
 
         const ADMIN_CONFIG = {
-            ADMIN_PA55_C0DE: "P*55w*rd"
+            ADMIN_ACCESS_CODE_HASH: "fd74bdd901857b89f5737e5352a2a8a2d1f000aa4bed4aee47c95afaa37d0f99"
         };
 
         // State tracking
-        let isDonationSubmitting = false;
         let isQuizSyncing = false;
         let currentStudentDetails = { name: "", section: "" };
         let activeShuffledQuiz = [];
 
-        // Helper to toggle pa55code visibility
-        function toggleAccessVisibility(inputId, eyeIconId) {
+        // -------------------------------------------------------------
+        // SHA-256 PASSCODE VERIFICATION
+        // -------------------------------------------------------------
+        // SHA-256 is used here to avoid storing plaintext passcodes in the page.
+        // This remains client-side protection only; production authentication
+        // should be verified by a secure server-side endpoint.
+        async function generateSHA256Hash(passcode) {
+            if (!window.crypto || !window.crypto.subtle || typeof TextEncoder === 'undefined') {
+                throw new Error("Secure SHA-256 verification is unavailable. Please open this page using HTTPS or localhost and try again.");
+            }
+
+            const encoder = new TextEncoder();
+            const data = encoder.encode(String(passcode));
+            const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(byte => byte.toString(16).padStart(2, "0")).join("");
+        }
+
+        async function verifySHA256Passcode(passcode, expectedHash) {
+            if (!passcode || !expectedHash) return false;
+            const actualHash = await generateSHA256Hash(passcode);
+            return actualHash === expectedHash;
+        }
+
+        // Helper to toggle password visibility
+        function togglePasswordVisibility(inputId, eyeIconId) {
             const input = document.getElementById(inputId);
             const eye = document.getElementById(eyeIconId);
-            if (input.type === 'text') {
+            if (input.type === 'password') {
                 input.type = 'text';
                 eye.className = "fa-solid fa-eye-slash";
             } else {
-                input.type = 'text';
+                input.type = 'password';
                 eye.className = "fa-solid fa-eye";
             }
         }
@@ -40,11 +57,21 @@
         // -------------------------------------------------------------
         // QUIZ ACCESS GATE & SCORE SYNCHRONIZATION LOGIC
         // -------------------------------------------------------------
-        function unlockQuizSection() {
-            const nameInput = document.getElementById('studentNameInput').value.trim();
-            const sectionInput = document.getElementById('studentSectionInput').value.trim();
-            const codeInput = document.getElementById('quizAccessCodeInput').value.trim();
+        async function unlockQuizSection() {
+            const nameElement = document.getElementById('studentNameInput');
+            const sectionElement = document.getElementById('studentSectionInput');
+            const codeElement = document.getElementById('quizAccessCodeInput');
             const errorMsg = document.getElementById('quizGateErrorMsg');
+            const requiredElements = [nameElement, sectionElement, codeElement, errorMsg];
+
+            if (requiredElements.some(element => !element)) {
+                console.error("Quiz access gate is missing one or more required HTML elements.");
+                return;
+            }
+
+            const nameInput = nameElement.value.trim();
+            const sectionInput = sectionElement.value.trim();
+            const codeInput = codeElement.value.trim();
 
             if (!nameInput || !sectionInput) {
                 errorMsg.innerText = "Please enter your Full Name and Grade & Section before unlocking.";
@@ -52,8 +79,16 @@
                 return;
             }
 
-            if (codeInput !== QUIZ_SYNC_CONFIG.TEACHER_ACCESS_CODE) {
-                errorMsg.innerText = "Invalid teacher access code. Please check with your teacher.";
+            try {
+                const isValidCode = await verifySHA256Passcode(codeInput, QUIZ_SYNC_CONFIG.TEACHER_ACCESS_CODE_HASH);
+                if (!isValidCode) {
+                    errorMsg.innerText = "Invalid teacher access code. Please check with your teacher.";
+                    errorMsg.classList.remove('hidden');
+                    return;
+                }
+            } catch (error) {
+                console.error("Teacher access-code verification failed:", error);
+                errorMsg.innerText = error.message || "Unable to verify the teacher access code. Please try again.";
                 errorMsg.classList.remove('hidden');
                 return;
             }
@@ -62,12 +97,25 @@
             currentStudentDetails.name = nameInput;
             currentStudentDetails.section = sectionInput;
 
-            document.getElementById('displayStudentName').innerText = nameInput;
-            document.getElementById('displayStudentSection').innerText = sectionInput;
+            const displayName = document.getElementById('displayStudentName');
+            const displaySection = document.getElementById('displayStudentSection');
+            const accessGate = document.getElementById('quizAccessGate');
+            const quizContent = document.getElementById('quizMainContent');
+            const relockButton = document.getElementById('relockQuizBtn');
 
-            document.getElementById('quizAccessGate').classList.add('hidden');
-            document.getElementById('quizMainContent').classList.remove('hidden');
-            document.getElementById('relockQuizBtn').classList.remove('hidden');
+            if (!displayName || !displaySection || !accessGate || !quizContent || !relockButton) {
+                console.error("Quiz content is missing one or more required HTML elements.");
+                errorMsg.innerText = "The quiz interface could not be opened because a required page element is missing. Please contact your teacher.";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            displayName.innerText = nameInput;
+            displaySection.innerText = sectionInput;
+
+            accessGate.classList.add('hidden');
+            quizContent.classList.remove('hidden');
+            relockButton.classList.remove('hidden');
             errorMsg.classList.add('hidden');
         }
 
@@ -154,18 +202,34 @@
         }
 
         // -------------------------------------------------------------
-        // ADMIN GUIDE SECTION LOCK / UNLOCK LOGIC (P@55w0rd)
+        // ADMIN GUIDE SECTION LOCK / UNLOCK LOGIC (SHA-256 verification)
         // -------------------------------------------------------------
-        function unlockAdminGuideSection() {
-            const inputCode = document.getElementById('adminAccessCodeInput').value.trim();
+        async function unlockAdminGuideSection() {
+            const inputElement = document.getElementById('adminAccessCodeInput');
             const errorMsg = document.getElementById('adminGateErrorMsg');
+            const accessGate = document.getElementById('adminAccessGate');
+            const adminGuide = document.getElementById('admin-guide-section');
 
-            if (inputCode === ADMIN_CONFIG.ADMIN_PA55_C0DE) {
-                document.getElementById('adminAccessGate').classList.add('hidden');
-                document.getElementById('admin-guide-section').classList.remove('hidden');
-                errorMsg.classList.add('hidden');
-            } else {
-                errorMsg.innerText = "Invalid administrator access code.";
+            if (!inputElement || !errorMsg || !accessGate || !adminGuide) {
+                console.error("Administrator access gate is missing one or more required HTML elements.");
+                return;
+            }
+
+            const inputCode = inputElement.value.trim();
+
+            try {
+                const isValidCode = await verifySHA256Passcode(inputCode, ADMIN_CONFIG.ADMIN_ACCESS_CODE_HASH);
+                if (isValidCode) {
+                    accessGate.classList.add('hidden');
+                    adminGuide.classList.remove('hidden');
+                    errorMsg.classList.add('hidden');
+                } else {
+                    errorMsg.innerText = "Invalid administrator access code.";
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Administrator access-code verification failed:", error);
+                errorMsg.innerText = error.message || "Unable to verify the administrator access code. Please try again.";
                 errorMsg.classList.remove('hidden');
             }
         }
@@ -177,239 +241,7 @@
         }
 
         // -------------------------------------------------------------
-        // DONATION MODAL INTERACTION & FOCUS MANAGEMENT
-        // -------------------------------------------------------------
-        let lastActiveElement = null;
-
-        function openDonationModal() {
-            lastActiveElement = document.activeElement;
-            const modal = document.getElementById('donationModal');
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            
-            setTimeout(() => {
-                const input = document.getElementById('donorNameInput');
-                if (input) input.focus();
-            }, 100);
-        }
-
-        function closeDonationModal() {
-            const modal = document.getElementById('donationModal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-            
-            const statusMsg = document.getElementById('donationStatusMessage');
-            if (statusMsg) {
-                statusMsg.className = "hidden p-3 rounded-xl text-xs font-medium leading-relaxed";
-                statusMsg.innerHTML = "";
-            }
-
-            if (lastActiveElement) {
-                lastActiveElement.focus();
-            }
-        }
-
-        function toggleOrganizationField() {
-            const donorType = document.getElementById('donorTypeSelect').value;
-            const wrapper = document.getElementById('organizationFieldWrapper');
-            const orgInput = document.getElementById('donorOrgInput');
-            
-            if (donorType === 'Group') {
-                wrapper.classList.remove('hidden');
-                orgInput.required = true;
-            } else {
-                wrapper.classList.add('hidden');
-                orgInput.required = false;
-                orgInput.value = '';
-            }
-        }
-
-        // Close Modal via Escape Key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                const modal = document.getElementById('donationModal');
-                if (modal && !modal.classList.contains('hidden')) {
-                    closeDonationModal();
-                }
-            }
-        });
-
-        // -------------------------------------------------------------
-        // COPY GCASH NUMBER TO CLIPBOARD
-        // -------------------------------------------------------------
-        function copyGcashNumber() {
-            const number = DONATION_CONFIG.GCASH_NUMBER;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(number.replace(/-/g, '')).then(() => {
-                    showCopyFeedback(true);
-                }).catch(() => {
-                    fallbackCopyText(number);
-                });
-            } else {
-                fallbackCopyText(number);
-            }
-        }
-
-        function fallbackCopyText(text) {
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            try {
-                document.execCommand('copy');
-                showCopyFeedback(true);
-            } catch (err) {
-                displayDonationStatus("Unable to auto-copy. Please select and copy 0968-7042-059 manually.", "error");
-            }
-            document.body.removeChild(tempInput);
-        }
-
-        function showCopyFeedback(success) {
-            const copyMsg = document.getElementById('copySuccessMsg');
-            if (success && copyMsg) {
-                copyMsg.classList.remove('hidden');
-                setTimeout(() => {
-                    copyMsg.classList.add('hidden');
-                }, 3000);
-            }
-        }
-
-        // -------------------------------------------------------------
-        // FORM VALIDATION & SUBMISSION HANDLER (EXAMSHUFFLE PRO PARAMS)
-        // -------------------------------------------------------------
-        function validateDonationForm(donorName, donorType, organization, country, amount) {
-            if (!donorName || donorName.trim().length === 0) {
-                return { valid: false, message: "Please enter your name." };
-            }
-            if (donorName.trim().length > 160) {
-                return { valid: false, message: "Donor name cannot exceed 160 characters." };
-            }
-            if (!country || country.trim().length === 0) {
-                return { valid: false, message: "Please enter your country." };
-            }
-            if (donorType === 'Group' && (!organization || organization.trim().length === 0)) {
-                return { valid: false, message: "Organization or Group name is required for Group donors." };
-            }
-
-            const numAmount = parseFloat(amount);
-            if (isNaN(numAmount) || !isFinite(numAmount) || numAmount <= 0) {
-                return { valid: false, message: "Please enter a valid positive donation amount." };
-            }
-
-            const parts = String(amount).split('.');
-            if (parts.length > 1 && parts[1].length > 2) {
-                return { valid: false, message: "Donation amount cannot have more than 2 decimal places." };
-            }
-
-            return {
-                valid: true,
-                donorName: donorName.trim(),
-                donorType: donorType,
-                organization: organization ? organization.trim() : '',
-                country: country.trim(),
-                amount: numAmount.toFixed(2)
-            };
-        }
-
-        function displayDonationStatus(message, type) {
-            const msgBox = document.getElementById('donationStatusMessage');
-            msgBox.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-300', 'bg-rose-50', 'text-rose-900', 'border-rose-300', 'bg-blue-50', 'text-blue-900', 'border-blue-300');
-            
-            if (type === 'success') {
-                msgBox.className = "p-3 rounded-xl text-xs font-medium leading-relaxed bg-emerald-50 text-emerald-900 border border-emerald-300 block";
-            } else if (type === 'error') {
-                msgBox.className = "p-3 rounded-xl text-xs font-medium leading-relaxed bg-rose-50 text-rose-900 border border-rose-300 block";
-            } else if (type === 'pending') {
-                msgBox.className = "p-3 rounded-xl text-xs font-medium leading-relaxed bg-blue-50 text-blue-900 border border-blue-300 block";
-            }
-            
-            msgBox.innerHTML = message;
-        }
-
-        async function submitDonationRecord(event) {
-            event.preventDefault();
-
-            if (isDonationSubmitting) return;
-
-            const nameInput = document.getElementById('donorNameInput');
-            const typeSelect = document.getElementById('donorTypeSelect');
-            const orgInput = document.getElementById('donorOrgInput');
-            const countryInput = document.getElementById('countryInput');
-            const amountInput = document.getElementById('donationAmountInput');
-            const submitBtn = document.getElementById('submitDonationRecordBtn');
-
-            const validation = validateDonationForm(
-                nameInput.value,
-                typeSelect.value,
-                orgInput.value,
-                countryInput.value,
-                amountInput.value
-            );
-
-            if (!validation.valid) {
-                displayDonationStatus(`<i class="fa-solid fa-circle-exclamation"></i> ${validation.message}`, "error");
-                return;
-            }
-
-            // Lock UI
-            isDonationSubmitting = true;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> Submitting Record...`;
-            displayDonationStatus(`<i class="fa-solid fa-spinner animate-spin"></i> Sending data to ExamShuffle Pro script...`, "pending");
-
-            // Format URL-encoded parameters to trigger Apps Script e.parameter mapping
-            const formData = new URLSearchParams();
-            formData.append('donorName', validation.donorName);
-            formData.append('donorType', validation.donorType);
-            formData.append('donorOrganization', validation.organization);
-            formData.append('country', validation.country);
-            formData.append('amount', validation.amount);
-            formData.append('source', 'DVRMNHS Entrepreneurship Portal Support');
-
-            try {
-                const response = await fetch(DONATION_CONFIG.GOOGLE_APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: formData.toString()
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.success) {
-                        displayDonationStatus(
-                            `<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> <strong>Record Saved!</strong> Thank you, <strong>${escapeHtml(validation.donorName)}</strong>! Your contribution record of ₱${validation.amount} has been safely saved in the spreadsheet.`,
-                            "success"
-                        );
-                        nameInput.value = "";
-                        orgInput.value = "";
-                        amountInput.value = "";
-                    } else {
-                        displayDonationStatus(`<i class="fa-solid fa-triangle-exclamation"></i> ${escapeHtml(result.message || 'Submission failed.')}`, "error");
-                    }
-                } else {
-                    throw new Error(`HTTP Error Status: ${response.status}`);
-                }
-
-            } catch (err) {
-                if (DONATION_CONFIG.GOOGLE_APPS_SCRIPT_URL.includes("SAMPLE_DONATION_ENDPOINT_URL")) {
-                    displayDonationStatus(
-                        `<i class="fa-solid fa-circle-info"></i> <strong>Demo Notice:</strong> Frontend validation passed! To save live records to your sheet (ID: <code>1iXfkwDMLDbVty8ph7nyIJ3CTinTWKDhH67XDLoe0Few</code>), paste your deployed Apps Script URL in <code>DONATION_CONFIG.GOOGLE_APPS_SCRIPT_URL</code>.`,
-                        "pending"
-                    );
-                } else {
-                    displayDonationStatus(
-                        `<i class="fa-solid fa-triangle-exclamation"></i> Data submitted to script endpoint. Detailed result: ${escapeHtml(err.message)}`,
-                        "error"
-                    );
-                }
-            } finally {
-                isDonationSubmitting = false;
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Submit Donation Record`;
-            }
-        }
-
+        // HTML escaping helper used by assessment feedback and synchronization messages.
         function escapeHtml(str) {
             return String(str)
                 .replace(/&/g, "&amp;")
