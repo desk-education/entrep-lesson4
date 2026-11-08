@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Learning Flow Portal | DVRMNHS</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library for Quiz Completion -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deped: {
+                            blue: '#0038A8',
+                            darkblue: '#002366',
+                            gold: '#FCD116',
+                            red: '#CE1126',
+                            accent: '#1E40AF',
+                        },
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<!--
+    <style>
+        
+    </style>
+-->
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-deped-gold selection:text-deped-darkblue">
+
+    <!-- TOP DEPED BRANDING HEADER -->
+    <header class="bg-gradient-to-r from-deped-darkblue via-deped-blue to-blue-900 text-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <!-- Logos & School Info -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <!-- Real and Official School Logo Container -->
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full p-1 shadow-md flex-shrink-0 flex items-center justify-center overflow-hidden">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7XGJejvLEQgrN74escP7VoKGvZQi25L7A5c3DyeXUyA3JID6pSbLXcF4&s=10" 
+                             alt="Don Vicente Rama Memorial National High School Official Crest" 
+                             class="w-full h-full object-contain"
+                             onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Department_of_Education_%28DepEd%29.svg/1200px-Department_of_Education_%28DepEd%29.svg.png';" />
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-semibold uppercase tracking-wider bg-deped-gold text-deped-darkblue px-2 py-0.5 rounded-full">Region VII • Central Visayas</span>
+                            <span class="text-xs text-blue-200 hidden md:inline">Schools Division of Cebu City • South District 1</span>
+                        </div>
+                        <h1 class="text-lg sm:text-xl font-bold tracking-tight font-display leading-tight">
+                            Don Vicente Rama Memorial National High School
+                        </h1>
+                        <p class="text-xs sm:text-sm text-blue-100 flex items-center gap-1">
+                            <i class="fa-solid fa-location-dot text-deped-gold"></i> Macopa Street, Basak Cebu City
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Teacher Metadata Badge & Header Support Link -->
+                <div class="flex items-center space-x-3">
+                    <button id="headerOpenDonationBtn" onclick="openDonationModal()" class="bg-deped-gold hover:bg-yellow-400 text-deped-darkblue px-3 py-1.5 rounded-lg text-xs font-bold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart text-rose-600"></i> Support Portal
+                    </button>
+
+                    <div class="hidden lg:flex items-center space-x-4 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20">
+                        <div class="text-right">
+                            <p class="text-xs text-blue-200 uppercase tracking-widest font-medium">Detailed Lesson Plan No. 4</p>
+                            <p class="text-sm font-bold text-white">Teacher: Mhuddy T. Dagatan</p>
+                            <p class="text-xs text-deped-gold font-medium">Grade 12 • Senior High School</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-deped-gold text-deped-darkblue flex items-center justify-center font-bold text-lg shadow">
+                            MTD
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="bg-deped-darkblue/80 border-t border-white/10 text-xs sm:text-sm font-medium">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center space-x-1 sm:space-x-6 overflow-x-auto py-2.5 no-scrollbar">
+                    <a href="#hero" class="text-white hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-house"></i> Home</a>
+                    <a href="#objectives" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-bullseye"></i> Objectives</a>
+                    <a href="#learning-flow" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-diagram-project"></i> 5-Stage Flow</a>
+                    <a href="#group-workstations" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-users"></i> Group Workstations</a>
+                    <a href="#quiz-section" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5 bg-deped-gold text-deped-darkblue px-2.5 py-1 rounded-md font-semibold"><i class="fa-solid fa-pen-to-square"></i> 15-Item Assessment</a>
+                    <a href="#wrapup" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-flag-checkered"></i> Wrap-Up</a>
+                    <a href="#assignment" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-book-bookmark"></i> Assignment & References</a>
+                    <a href="#admin-gate-wrapper" class="text-blue-100 hover:text-deped-gold whitespace-nowrap transition flex items-center gap-1.5"><i class="fa-solid fa-sliders"></i>Developer section</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT BODY -->
+    <main class="flex-grow space-y-12 pb-16">
+
+        <!-- HERO BANNER SECTION -->
+        <section id="hero" class="relative bg-gradient-to-b from-deped-darkblue to-blue-900 text-white py-12 sm:py-16 px-4 overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-7xl mx-auto relative z-10 text-center">
+                <span class="inline-flex items-center gap-2 bg-white/10 text-deped-gold text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full border border-deped-gold/30 mb-4">
+                    <i class="fa-solid fa-lightbulb text-deped-gold animate-pulse"></i> Interactive Senior High School Entrepreneurship Module
+                </span>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-tight max-w-4xl mx-auto">
+                    Interactive Entrepreneurship <span class="text-transparent bg-clip-text bg-gradient-to-r from-deped-gold via-yellow-200 to-white">Learning Flow</span>
+                </h2>
+                <p class="mt-4 text-base sm:text-xl text-blue-100 max-w-2xl mx-auto font-light leading-relaxed">
+                    Transforming simple business ideas into real-world sustainable ventures through structured planning, teamwork, action, and financial integrity.
+                </p>
+                <div class="mt-8 flex flex-wrap justify-center gap-4">
+                    <a href="#learning-flow" class="bg-deped-gold hover:bg-yellow-400 text-deped-darkblue font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        Explore Learning Flow <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#group-workstations" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl border border-white/20 backdrop-blur-md transition flex items-center gap-2">
+                        Group Workstations <i class="fa-solid fa-laptop-code"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: LESSON OBJECTIVES DASHBOARD -->
+        <section id="objectives" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-800">Learning Objectives Dashboard</h3>
+                <p class="text-slate-500 text-sm sm:text-base mt-1">Four pillars guiding our Grade 12 entrepreneurial journey</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Knowledge Objective Card -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition border-t-4 border-blue-600 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">Knowledge</span>
+                        <h4 class="text-lg font-bold text-slate-800 mt-2">Design Learning Flow</h4>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Design an interactive entrepreneurship learning flow that integrates business opportunity identification, business planning, implementation, marketing, and financial evaluation.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-blue-600 flex items-center justify-between">
+                        <span>Group 1 Focus Area</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Skills Objective Card -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition border-t-4 border-emerald-500 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">Skills</span>
+                        <h4 class="text-lg font-bold text-slate-800 mt-2">Create & Demonstrate</h4>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Create an interactive entrepreneurship learning flow that demonstrates the practical steps of developing and implementing a simple business model.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-emerald-600 flex items-center justify-between">
+                        <span>Group 2 Focus Area</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Attitude Objective Card -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition border-t-4 border-amber-500 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md">Attitude</span>
+                        <h4 class="text-lg font-bold text-slate-800 mt-2">Cooperation & Responsibility</h4>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Practice active cooperation and personal responsibility while collaboratively developing an interactive entrepreneurship learning flow.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-600 flex items-center justify-between">
+                        <span>Group 3 Focus Area</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Values Objective Card -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition border-t-4 border-purple-600 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">Values</span>
+                        <h4 class="text-lg font-bold text-slate-800 mt-2">Financial Honesty</h4>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
+                            Display honesty and integrity in performing entrepreneurial activities, record-keeping, and managing business transactions.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-purple-600 flex items-center justify-between">
+                        <span>Group 4 Focus Area</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: INTERACTIVE 5-STAGE LEARNING FLOW VISUALIZER -->
+        <section id="learning-flow" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200">
+                <div class="text-center max-w-3xl mx-auto mb-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-deped-blue bg-blue-50 px-3 py-1 rounded-full">Interactive Flowchart</span>
+                    <h3 class="text-2xl sm:text-4xl font-extrabold font-display text-slate-900 mt-2">The 5-Stage Entrepreneurship Learning Flow</h3>
+                    <p class="text-slate-500 text-sm sm:text-base mt-2">Click any stage below to inspect detailed steps, outputs, and key actions.</p>
+                </div>
+
+                <!-- Horizontal Stage Selector Buttons -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+                    <button onclick="switchFlowStep(1)" id="flow-btn-1" class="flow-step active p-4 rounded-2xl border text-left flex flex-col justify-between h-32">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded">Stage 1</span>
+                            <i class="fa-solid fa-magnifying-glass text-blue-600 text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-800 mt-2 leading-tight">Opportunity Identification</h4>
+                    </button>
+
+                    <button onclick="switchFlowStep(2)" id="flow-btn-2" class="flow-step p-4 rounded-2xl border border-slate-200 text-left flex flex-col justify-between h-32 hover:border-blue-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Stage 2</span>
+                            <i class="fa-solid fa-pen-ruler text-slate-500 text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-800 mt-2 leading-tight">Business Planning</h4>
+                    </button>
+
+                    <button onclick="switchFlowStep(3)" id="flow-btn-3" class="flow-step p-4 rounded-2xl border border-slate-200 text-left flex flex-col justify-between h-32 hover:border-blue-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Stage 3</span>
+                            <i class="fa-solid fa-gears text-slate-500 text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-800 mt-2 leading-tight">Implementation</h4>
+                    </button>
+
+                    <button onclick="switchFlowStep(4)" id="flow-btn-4" class="flow-step p-4 rounded-2xl border border-slate-200 text-left flex flex-col justify-between h-32 hover:border-blue-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Stage 4</span>
+                            <i class="fa-solid fa-bullhorn text-slate-500 text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-800 mt-2 leading-tight">Marketing Strategy</h4>
+                    </button>
+
+                    <button onclick="switchFlowStep(5)" id="flow-btn-5" class="flow-step col-span-2 md:col-span-1 p-4 rounded-2xl border border-slate-200 text-left flex flex-col justify-between h-32 hover:border-blue-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Stage 5</span>
+                            <i class="fa-solid fa-chart-line text-slate-500 text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-800 mt-2 leading-tight">Financial Evaluation</h4>
+                    </button>
+                </div>
+
+                <!-- Dynamic Content Display Card -->
+                <div id="flow-content-card" class="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200">
+                    <!-- Dynamic Javascript Content Injected Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GROUP APPLICATION WORKSTATION TABS -->
+        <section id="group-workstations" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Collaborative Learning</span>
+                <h3 class="text-2xl sm:text-4xl font-extrabold font-display text-slate-900 mt-2">Group Action Workstations</h3>
+                <p class="text-slate-500 text-sm sm:text-base mt-1">Interactive real-world application tools assigned for Groups 1 to 4</p>
+            </div>
+
+            <!-- Group Tab Controls -->
+            <div class="flex flex-wrap justify-center gap-2 mb-6 border-b border-slate-200 pb-4">
+                <button onclick="switchGroupTab(1)" id="group-tab-1" class="px-5 py-2.5 rounded-xl font-bold text-sm transition bg-deped-blue text-white shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-sitemap"></i> Group 1: Knowledge Architect
+                </button>
+                <button onclick="switchGroupTab(2)" id="group-tab-2" class="px-5 py-2.5 rounded-xl font-bold text-sm transition bg-white text-slate-600 hover:bg-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-play"></i> Group 2: Skills Simulator
+                </button>
+                <button onclick="switchGroupTab(3)" id="group-tab-3" class="px-5 py-2.5 rounded-xl font-bold text-sm transition bg-white text-slate-600 hover:bg-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-users-gear"></i> Group 3: Attitude Charter
+                </button>
+                <button onclick="switchGroupTab(4)" id="group-tab-4" class="px-5 py-2.5 rounded-xl font-bold text-sm transition bg-white text-slate-600 hover:bg-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-receipt"></i> Group 4: Values Audit
+                </button>
+            </div>
+
+            <!-- Group Workstation Content Panel -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200">
+                
+                <!-- GROUP 1: KNOWLEDGE ARCHITECT PANEL -->
+                <div id="group-panel-1" class="space-y-6">
+                    <div class="flex items-center justify-between border-b pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Knowledge Objective Application</span>
+                            <h4 class="text-xl font-bold text-slate-900">Enterprise System Flowchart Architect</h4>
+                        </div>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">Model: "GreenCart Campus Snacks"</span>
+                    </div>
+
+                    <p class="text-sm text-slate-600">
+                        Design a 5-phase operational flow for a school snack business addressing an unmet need in the campus community.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                            <h5 class="font-bold text-sm text-blue-900 flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">1</span> Opportunity</h5>
+                            <p class="text-xs text-slate-600 mt-2 font-medium">Banana-Oat Energy Bites</p>
+                            <p class="text-xs text-slate-500 mt-1">Solves lack of affordable healthy snacks during recess.</p>
+                        </div>
+                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                            <h5 class="font-bold text-sm text-blue-900 flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">2</span> Planning</h5>
+                            <p class="text-xs text-slate-600 mt-2 font-medium">₱500 Capital Budget</p>
+                            <p class="text-xs text-slate-500 mt-1">Produces 50 packs @ ₱10 production cost per pack.</p>
+                        </div>
+                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                            <h5 class="font-bold text-sm text-blue-900 flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">3</span> Implementation</h5>
+                            <p class="text-xs text-slate-600 mt-2 font-medium">5:30 AM Preparation</p>
+                            <p class="text-xs text-slate-500 mt-1">Mobile cart setup at canteen during 10 AM & 3 PM recess.</p>
+                        </div>
+                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                            <h5 class="font-bold text-sm text-blue-900 flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">4</span> Marketing</h5>
+                            <p class="text-xs text-slate-600 mt-2 font-medium">"Fuel Your Brain!"</p>
+                            <p class="text-xs text-slate-500 mt-1">Pre-orders in class chats + "Buy 5, Get 1 Free" card.</p>
+                        </div>
+                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                            <h5 class="font-bold text-sm text-blue-900 flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">5</span> Financials</h5>
+                            <p class="text-xs text-slate-600 mt-2 font-medium">₱750 Revenue Target</p>
+                            <p class="text-xs text-slate-500 mt-1">50 packs × ₱15 price = ₱250 Net Profit (50% ROI).</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Business Flow Tester -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-5 mt-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <h5 class="text-sm font-bold text-deped-gold flex items-center gap-2"><i class="fa-solid fa-vial"></i> Flow Integrity Tester</h5>
+                            <span class="text-xs text-slate-400">Interactive Scenario Simulator</span>
+                        </div>
+                        <p class="text-xs text-slate-300">Simulate a real-world market disruption:</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <button onclick="testFlowScenario('ingredient_spike')" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-semibold transition">Raw Material Price +20%</button>
+                            <button onclick="testFlowScenario('rainy_day')" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-semibold transition">Rainy Day (Low Foot Traffic)</button>
+                        </div>
+                        <div id="scenario-output" class="mt-3 p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-blue-200 hidden">
+                            <!-- Scenario text -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GROUP 2: SKILLS SIMULATOR PANEL -->
+                <div id="group-panel-2" class="space-y-6 hidden">
+                    <div class="flex items-center justify-between border-b pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-600 uppercase">Skills Objective Application</span>
+                            <h4 class="text-xl font-bold text-slate-900">Operations Action Kit & Task Card Simulator</h4>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">Scenario: "Fresh Squeeze Lemonade Stand"</span>
+                    </div>
+
+                    <p class="text-sm text-slate-600">
+                        Step through color-coded operational cards to execute daily business tasks. Click each card to complete step.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Card 1 -->
+                        <div id="task-card-1" onclick="toggleTaskCard(1)" class="cursor-pointer border-2 border-emerald-300 bg-emerald-50/40 p-4 rounded-2xl hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded">🟢 Sourcing</span>
+                                <i id="task-icon-1" class="fa-regular fa-circle text-emerald-600 text-lg"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-slate-800">Card 1.1: Material Sourcing</h5>
+                            <p class="text-xs text-slate-600 mt-1">Purchase 3kg lemons, sugar, ice, and cups with ₱300 budget.</p>
+                            <div class="mt-3 pt-2 border-t border-emerald-200 text-[11px] text-emerald-700 font-medium">Output: Inventory Checklist</div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div id="task-card-2" onclick="toggleTaskCard(2)" class="cursor-pointer border-2 border-blue-300 bg-blue-50/40 p-4 rounded-2xl hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold bg-blue-600 text-white px-2 py-0.5 rounded">🔵 Production</span>
+                                <i id="task-icon-2" class="fa-regular fa-circle text-blue-600 text-lg"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-slate-800">Card 2.1: Quality Recipe</h5>
+                            <p class="text-xs text-slate-600 mt-1">Sanitize station. Mix 1 lemon : 500ml water : 30g sugar ratio.</p>
+                            <div class="mt-3 pt-2 border-t border-blue-200 text-[11px] text-blue-700 font-medium">Output: Quality Assurance Pass</div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div id="task-card-3" onclick="toggleTaskCard(3)" class="cursor-pointer border-2 border-amber-300 bg-amber-50/40 p-4 rounded-2xl hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold bg-amber-600 text-white px-2 py-0.5 rounded">🟡 Sales</span>
+                                <i id="task-icon-3" class="fa-regular fa-circle text-amber-600 text-lg"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-slate-800">Card 3.1: Service Delivery</h5>
+                            <p class="text-xs text-slate-600 mt-1">Greet customers with signage up; serve fresh drink in &lt;60s.</p>
+                            <div class="mt-3 pt-2 border-t border-amber-200 text-[11px] text-amber-700 font-medium">Output: Customer Sale Log</div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div id="task-card-4" onclick="toggleTaskCard(4)" class="cursor-pointer border-2 border-rose-300 bg-rose-50/40 p-4 rounded-2xl hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold bg-rose-600 text-white px-2 py-0.5 rounded">🔴 Closing</span>
+                                <i id="task-icon-4" class="fa-regular fa-circle text-rose-600 text-lg"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-slate-800">Card 4.1: Cash & Stock Reconciliation</h5>
+                            <p class="text-xs text-slate-600 mt-1">Count stock left, balance cash drawer, clean utensils.</p>
+                            <div class="mt-3 pt-2 border-t border-rose-200 text-[11px] text-rose-700 font-medium">Output: Daily Operations Log</div>
+                        </div>
+                    </div>
+
+                    <div id="ops-progress-bar" class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                        <div id="ops-progress" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- GROUP 3: ATTITUDE CHARTER PANEL -->
+                <div id="group-panel-3" class="space-y-6 hidden">
+                    <div class="flex items-center justify-between border-b pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-amber-600 uppercase">Attitude Objective Application</span>
+                            <h4 class="text-xl font-bold text-slate-900">Team Responsibility & Cooperation Matrix</h4>
+                        </div>
+                        <span class="bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full">Interactive Accountability Charter</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <h5 class="font-bold text-sm text-slate-800 border-b pb-2">Team Role Distribution</h5>
+                            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200 text-xs">
+                                <p class="font-bold text-amber-900">Member A (Team Leader)</p>
+                                <p class="text-slate-600">Coordinates overall flow, manages timeline, ensures all voices are heard.</p>
+                            </div>
+                            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200 text-xs">
+                                <p class="font-bold text-amber-900">Member B (Resource Manager)</p>
+                                <p class="text-slate-600">Gathers materials, manages budget, ensures workstation equipment safety.</p>
+                            </div>
+                            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200 text-xs">
+                                <p class="font-bold text-amber-900">Member C (Documentation Specialist)</p>
+                                <p class="text-slate-600">Drafts charts, records meeting notes, organizes peer suggestions.</p>
+                            </div>
+                            <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200 text-xs">
+                                <p class="font-bold text-amber-900">Member D (Quality Auditor)</p>
+                                <p class="text-slate-600">Checks work accuracy, assists any teammate facing task roadblocks.</p>
+                            </div>
+                        </div>
+
+                        <!-- Live Cooperation Logger -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <h5 class="font-bold text-sm text-slate-800 mb-2">Interactive Cooperation Incident Logger</h5>
+                                <p class="text-xs text-slate-500 mb-3">Record a real-time example of teamwork and peer support:</p>
+                                
+                                <textarea id="coop-log-input" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none" placeholder="e.g., Member C was delayed on chart drawing; Member B provided supplies while Member D drew gridlines..."></textarea>
+                            </div>
+                            <button onclick="logCooperationEntry()" class="mt-3 w-full bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs py-2.5 rounded-xl transition shadow">
+                                Add Entry to Team Log
+                            </button>
+                            <div id="coop-log-list" class="mt-3 max-h-32 overflow-y-auto space-y-1 text-xs text-slate-700">
+                                <div class="p-2 bg-white rounded border border-slate-200 italic">"Member B helped Member C organize budget tables during recess."</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GROUP 4: VALUES AUDIT PANEL -->
+                <div id="group-panel-4" class="space-y-6 hidden">
+                    <div class="flex items-center justify-between border-b pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-purple-600 uppercase">Values Objective Application</span>
+                            <h4 class="text-xl font-bold text-slate-900">Ethical Pricing & Financial Ledger Tool</h4>
+                        </div>
+                        <span class="bg-purple-50 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">Financial Honesty Audit</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Cost & Fair Price Calculator -->
+                        <div class="bg-purple-50/50 p-4 rounded-2xl border border-purple-200">
+                            <h5 class="font-bold text-sm text-purple-900 mb-3"><i class="fa-solid fa-calculator"></i> Transparent Price Breakdown</h5>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <label class="font-medium text-slate-700">Raw Unit Ingredient Cost (₱)</label>
+                                    <input type="number" id="cost-ingredients" value="8.50" step="0.5" oninput="calculateEthicalPrice()" class="w-full mt-1 p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-medium text-slate-700">Fair Labor Overhead (₱)</label>
+                                    <input type="number" id="cost-labor" value="1.50" step="0.5" oninput="calculateEthicalPrice()" class="w-full mt-1 p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-medium text-slate-700">Fair Profit Margin (%)</label>
+                                    <input type="number" id="profit-margin" value="20" step="5" oninput="calculateEthicalPrice()" class="w-full mt-1 p-2 border rounded-lg">
+                                </div>
+                                <div class="pt-2 border-t border-purple-200 flex justify-between items-center text-sm font-bold">
+                                    <span class="text-purple-900">Honest Selling Price:</span>
+                                    <span id="calculated-price" class="text-purple-700 text-base">₱12.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Transaction Ledger -->
+                        <div class="lg:col-span-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <h5 class="font-bold text-sm text-slate-800 mb-2"><i class="fa-solid fa-book-open text-purple-600"></i> Financial Integrity Ledger</h5>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-slate-200 text-slate-700 font-bold uppercase">
+                                        <tr>
+                                            <th class="p-2">Trans ID</th>
+                                            <th class="p-2">Item</th>
+                                            <th class="p-2">Qty</th>
+                                            <th class="p-2">Tendered</th>
+                                            <th class="p-2">Actual Cost</th>
+                                            <th class="p-2">Change</th>
+                                            <th class="p-2">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ledger-body" class="divide-y divide-slate-200">
+                                        <tr>
+                                            <td class="p-2 font-mono">#001</td>
+                                            <td class="p-2">Energy Bites</td>
+                                            <td class="p-2">2</td>
+                                            <td class="p-2">₱50.00</td>
+                                            <td class="p-2">₱24.00</td>
+                                            <td class="p-2">₱26.00</td>
+                                            <td class="p-2"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">Verified Honest</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2 font-mono">#002</td>
+                                            <td class="p-2">Energy Bites</td>
+                                            <td class="p-2">1</td>
+                                            <td class="p-2">₱20.00</td>
+                                            <td class="p-2">₱12.00</td>
+                                            <td class="p-2">₱8.00</td>
+                                            <td class="p-2"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">Verified Honest</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: INTERACTIVE 15-ITEM ASSESSMENT QUIZ (WITH TEACHER ACCESS CODE GATE) -->
+        <section id="quiz-section" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 relative overflow-hidden">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b pb-6 mb-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-deped-blue bg-blue-50 px-3 py-1 rounded-full">Formative Evaluation</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 mt-1">15-Item Aligned Assessment Quiz</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Test your mastery of the Interactive Entrepreneurship Learning Flow (Questions randomized on load)</p>
+                    </div>
+
+                    <!-- Live Score Card & Quiz Lock Status -->
+                    <div class="flex items-center space-x-3">
+                        <button id="relockQuizBtn" onclick="lockQuizSection()" class="hidden px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-lock text-amber-600"></i> Lock Section
+                        </button>
+                        <div class="flex items-center space-x-3 bg-slate-900 text-white px-4 py-2.5 rounded-2xl">
+                            <div class="text-right">
+                                <p class="text-[10px] text-slate-400 uppercase font-semibold">Current Score</p>
+                                <p id="score-display" class="text-xl font-extrabold text-deped-gold">0 / 15</p>
+                            </div>
+                            <i class="fa-solid fa-trophy text-deped-gold text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUIZ ACCESS CODE LOCK OVERLAY GATE -->
+                <div id="quizAccessGate" class="p-8 bg-slate-50 border-2 border-dashed border-deped-blue/40 rounded-2xl text-center my-4 space-y-4">
+                    <div class="w-16 h-16 bg-blue-100 text-deped-blue rounded-full flex items-center justify-center text-2xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-800">Assessment Locked</h4>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-md mx-auto">
+                            Please wait for your teacher's instruction and access code before unlocking and taking this assessment.
+                        </p>
+                    </div>
+
+                    <!-- Student Details Input before taking assessment -->
+                    <div class="max-w-sm mx-auto space-y-3 pt-2 text-left">
+                        <div>
+                            <label for="studentNameInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                Full Name <span class="text-rose-500">*</span>
+                            </label>
+                            <input type="text" id="studentNameInput" placeholder="Enter your full name" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none bg-white">
+                        </div>
+                        <div>
+                            <label for="studentSectionInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                Grade & Section <span class="text-rose-500">*</span>
+                            </label>
+                            <input type="text" id="studentSectionInput" placeholder="e.g., Grade 12 - ABM A" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none bg-white">
+                        </div>
+                        <div>
+                            <label for="quizAccessCodeInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                Teacher Access Code <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <input type="text" id="quizAccessCodeInput" placeholder="Enter access code" class="w-full text-xs p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none bg-white">
+                                <button type="button" onclick="togglePasswordVisibility('quizAccessCodeInput', 'toggleAccessEye')" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-xs">
+                                    <i id="toggleAccessEye" class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizGateErrorMsg" class="hidden text-xs font-semibold text-rose-600"></div>
+
+                    <button onclick="unlockQuizSection()" class="px-8 py-3 bg-deped-blue hover:bg-blue-800 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <i class="fa-solid fa-key text-deped-gold"></i> Unlock Assessment
+                    </button>
+                </div>
+
+                <!-- UNLOCKED QUIZ CONTENT WRAPPER -->
+                <div id="quizMainContent" class="hidden space-y-6">
+                    
+                    <!-- Student Metadata Tag -->
+                    <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-xs flex flex-wrap justify-between items-center text-blue-900 gap-2">
+                        <div>
+                            <strong>Student:</strong> <span id="displayStudentName" class="font-bold"></span> | 
+                            <strong>Section:</strong> <span id="displayStudentSection" class="font-bold"></span>
+                        </div>
+                        <span class="bg-blue-200 text-blue-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Synchronized Session</span>
+                    </div>
+
+                    <!-- Quiz Progress Bar -->
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 mb-8">
+                        <div id="quiz-progress" class="bg-deped-blue h-2.5 rounded-full transition-all duration-300 w-0"></div>
+                    </div>
+
+                    <!-- Warning Alert Banner for Unanswered Questions or Rate Limits -->
+                    <div id="quizValidationWarning" class="hidden p-4 rounded-2xl bg-rose-50 border border-rose-300 text-rose-900 text-xs leading-relaxed space-y-1">
+                        <!-- Dynamic warning text -->
+                    </div>
+
+                    <!-- Quiz Container -->
+                    <div id="quiz-container" class="space-y-8">
+                        <!-- Questions will be rendered dynamically by JS -->
+                    </div>
+
+                    <!-- Sync Status Notice -->
+                    <div id="quizSyncStatusMessage" class="hidden p-3 rounded-xl text-xs font-medium leading-relaxed"></div>
+
+                    <!-- Submit / Reset Buttons -->
+                    <div class="mt-10 pt-6 border-t flex flex-wrap justify-between items-center gap-4">
+                        <button onclick="resetQuiz()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Reshuffle & Reset Quiz
+                        </button>
+                        <button onclick="submitQuiz()" id="submitQuizBtn" class="px-8 py-3 bg-deped-blue hover:bg-blue-800 text-white font-bold rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Submit Assessment & Sync
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 5: WRAP-UP & REFLECTION CORNER -->
+        <section id="wrapup" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 via-deped-darkblue to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+                <div class="max-w-3xl mb-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-deped-gold bg-white/10 px-3 py-1 rounded-full border border-white/20">Lesson Closure</span>
+                    <h3 class="text-2xl sm:text-4xl font-extrabold font-display mt-2">The Entrepreneur’s Chain of Success</h3>
+                    <p class="text-blue-200 text-sm sm:text-base mt-2">Rapid-fire call-and-response reflection and four pillars synthesis.</p>
+                </div>
+
+                <!-- Accordion Call & Response -->
+                <div class="space-y-3 mb-8">
+                    <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                        <p class="text-xs font-semibold text-deped-gold">Teacher Prompt 1:</p>
+                        <p class="text-sm font-bold text-white mt-0.5">"Every successful venture begins by identifying..."</p>
+                        <p class="text-xs text-blue-200 italic mt-1 font-medium">✨ Class Response: "...Customer Needs!"</p>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                        <p class="text-xs font-semibold text-deped-gold">Teacher Prompt 2:</p>
+                        <p class="text-sm font-bold text-white mt-0.5">"Before spending a single peso, we focus on..."</p>
+                        <p class="text-xs text-blue-200 italic mt-1 font-medium">✨ Class Response: "...Smart Planning!"</p>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                        <p class="text-xs font-semibold text-deped-gold">Teacher Prompt 3:</p>
+                        <p class="text-sm font-bold text-white mt-0.5">"We sustain our business through..."</p>
+                        <p class="text-xs text-blue-200 italic mt-1 font-medium">✨ Class Response: "...Financial Evaluation and Honesty!"</p>
+                    </div>
+                </div>
+
+                <!-- Teacher's Final Charge Quote Box -->
+                <div class="p-6 rounded-2xl bg-gradient-to-r from-deped-gold/20 to-amber-500/10 border border-deped-gold/40">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-quote-left text-deped-gold text-3xl"></i>
+                        <div>
+                            <p class="text-sm sm:text-base text-white font-medium leading-relaxed italic">
+                                "Profit may measure the growth of a business, but character and problem-solving measure the true strength of an entrepreneur. Great businesses do not start with millions of pesos—they start with a simple idea, a solid plan, a committed team, and the honesty to serve your community well."
+                            </p>
+                            <p class="text-xs text-deped-gold font-bold uppercase mt-3">— Teacher Mhuddy T. Dagatan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: ASSIGNMENT & REFERENCES TAB -->
+        <section id="assignment" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Homework Assignment Card -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-deped-blue font-bold text-xs uppercase mb-2">
+                            <i class="fa-solid fa-book"></i> Post-Lesson Task
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 font-display">Assignment: Community Micro-Business Audit</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1">Reinforce and strengthen today's lesson through observation.</p>
+
+                        <div class="mt-6 space-y-3 text-xs sm:text-sm text-slate-700">
+                            <div class="flex items-start gap-2 p-3 bg-slate-50 rounded-xl">
+                                <span class="font-bold text-deped-blue">1.</span>
+                                <div><strong class="text-slate-900">Opportunity Spotting:</strong> Identify one small business in your neighborhood (e.g., sari-sari store or food stall) and describe what customer need they solve.</div>
+                            </div>
+                            <div class="flex items-start gap-2 p-3 bg-slate-50 rounded-xl">
+                                <span class="font-bold text-deped-blue">2.</span>
+                                <div><strong class="text-slate-900">Marketing Strategy:</strong> Explain how they attract their target buyers (e.g., signage, word of mouth, low pricing).</div>
+                            </div>
+                            <div class="flex items-start gap-2 p-3 bg-slate-50 rounded-xl">
+                                <span class="font-bold text-deped-blue">3.</span>
+                                <div><strong class="text-slate-900">Values & Integrity:</strong> Describe one honest or responsible practice you observed them doing (e.g., exact change, fair pricing).</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t flex justify-between items-center text-xs text-slate-500">
+                        <span>Format: A4 size Bond paper with Margin and Student info.</span>
+                        <span class="font-bold text-deped-blue">Due: Next Class Session</span>
+                    </div>
+                </div>
+
+                <!-- Academic References Card -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-emerald-600 font-bold text-xs uppercase mb-2">
+                            <i class="fa-solid fa-bookmark"></i> Academic Sources
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 font-display">References & Bibliography</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1">Curriculum alignment and learning module citations.</p>
+
+                        <ul class="mt-6 space-y-3 text-xs text-slate-600">
+                            <li class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                                <strong>Department of Education.</strong> (2016). <em>K to 12 Senior High School Applied Subject – Entrepreneurship Curriculum Guide</em>. Pasig City: DepEd Complex.
+                            </li>
+                            <li class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                                <strong>Department of Education Region VII.</strong> (2020). <em>Entrepreneurship: Quarter 1 Self-Learning Modules (SLM)</em>. Cebu City: DepEd Region VII, Central Visayas.
+                            </li>
+                            <li class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                                <strong>Hisrich, R., Peters, M., & Shepherd, D.</strong> (2020). <em>Entrepreneurship</em> (11th ed.). McGraw-Hill Education.
+                            </li>
+                            <li class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                                <strong>Morato, E. A., Jr.</strong> (2016). <em>Entrepreneurship</em>. Manila: Rex Book Store, Inc.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t text-xs text-slate-400 text-center">
+                        Don Vicente Rama Memorial National High School • DepEd Region VII
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 7: WEBSITE SUPPORT & DONATION BANNER SECTION -->
+        <section id="support-website" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-blue-900 via-deped-darkblue to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-blue-800 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-2 text-center md:text-left">
+                    <span class="bg-deped-gold/20 text-deped-gold text-xs font-bold px-3 py-1 rounded-full border border-deped-gold/30 inline-flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart text-rose-500"></i> Support Educational Technology
+                    </span>
+                    <h3 class="text-xl sm:text-2xl font-bold font-display">Support This Educational Website</h3>
+                    <p class="text-xs sm:text-sm text-blue-100 max-w-2xl">
+                        Any amount of donation is greatly appreciated to support the maintenance, server hosting, continuous development, and improvement of this interactive learning portal for DVRMNHS students.
+                    </p>
+                </div>
+                <div class="flex-shrink-0">
+                    <button id="openDonationModalBtn" onclick="openDonationModal()" class="bg-deped-gold hover:bg-yellow-400 text-deped-darkblue font-extrabold text-sm px-6 py-3.5 rounded-2xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-hand-holding-dollar text-base"></i> Support This Website – GCash Donation
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: DEVELOPER & ADMIN ACCESS GATE FOR SYNCHRONIZATION GUIDE -->
+        <section id="admin-gate-wrapper" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Access Gate Overlay for Admin Section -->
+            <div id="adminAccessGate" class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 text-center space-y-4">
+                <div class="w-14 h-14 bg-slate-100 text-slate-700 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-extrabold font-display text-slate-900">Administrator & Developer Section</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-md mx-auto">
+                        This section contains administrative configuration instructions and backend Apps Script source codes. Please enter the administrator access code to view.
+                    </p>
+                </div>
+
+                <div class="max-w-xs mx-auto space-y-2 pt-1 text-left">
+                    <label for="adminAccessCodeInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        Admin Passcode
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="adminAccessCodeInput" placeholder="Enter admin passcode" class="w-full text-xs p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none bg-slate-50">
+                        <button type="button" onclick="togglePasswordVisibility('adminAccessCodeInput', 'toggleAdminEye')" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-xs">
+                            <i id="toggleAdminEye" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="adminGateErrorMsg" class="hidden text-xs font-semibold text-rose-600"></div>
+
+                <button onclick="unlockAdminGuideSection()" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow transition inline-flex items-center gap-2">
+                    <i class="fa-solid fa-unlock text-deped-gold"></i> Reveal Administrator Guide
+                </button>
+            </div>
+
+            <!-- HIDDEN ADMIN SECTION (UNLOCKED WITH P@55w0rd) -->
+            <div id="admin-guide-section" class="hidden bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-6">
+                <div class="flex flex-wrap items-center justify-between border-b pb-4 gap-2">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-deped-blue bg-blue-50 px-3 py-1 rounded-full">Developer & Administrator Integration Guide</span>
+                        <h3 class="text-2xl font-extrabold font-display text-slate-900 mt-1">GCash Donation & Assessment Synchronization Guide</h3>
+                    </div>
+                    <button onclick="lockAdminGuideSection()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-lock text-rose-600"></i> Hide / Relock Guide
+                    </button>
+                    <a style="color:springgreen;" href="https://docs.google.com/spreadsheets/d/1hbsnTQ6IlDoPXUuJqZpGURZyPpx7d6qATNTuU1j2rls/edit?gid=0#gid=0"><strong>Google Sheet Link</strong></a>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    This step-by-step guide explains how to configure Google Sheets spreadsheets and Google Apps Script web applications to automatically log donor records and synchronized student assessment scores with a 5-minute anti-spam cooldown protection.
+                </p>
+
+                <!-- Setup Steps Grid -->
+                <div class="space-y-6 text-xs sm:text-sm">
+                    
+                    <!-- PART A: DONATION SCRIPT -->
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-deped-blue text-white flex items-center justify-center text-xs">A</span>
+                            GCash Donation Integration Script (ExamShuffle Pro Engine)
+                        </h4>
+                        <p class="text-slate-600">Open your Google Sheet (ID: <code class="bg-slate-200 px-1 py-0.5 rounded text-blue-900 font-mono">1iXfkwDMLDbVty8ph7nyIJ3CTinTWKDhH67XDLoe0Few</code>) and paste this script in Extensions → Apps Script:</p>
+                        <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs overflow-x-auto font-mono leading-relaxed max-h-56"><code>/**
+ * ExamShuffle Pro - Donor Information Google Sheets Integration
+ */
+const SPREADSHEET_ID = '1iXfkwDMLDbVty8ph7nyIJ3CTinTWKDhH67XDLoe0Few';
+const SHEET_NAME = 'Donor Records';
+const HEADERS = ['Timestamp', 'Donor Name', 'Donor Type', 'Organization / Group', 'Country', 'Amount', 'Source'];
+
+function doPost(e) {
+  let lock;
+  try {
+    const params = (e && e.parameter) ? e.parameter : {};
+    const donorName = clean_(params.donorName || params.name, 160);
+    const donorType = clean_(params.donorType, 20);
+    const organization = clean_(params.donorOrganization || params.organization, 200);
+    const country = clean_(params.country, 100);
+    const amount = clean_(params.amount, 60);
+    const source = clean_(params.source || 'ExamShuffle Pro Support My Work', 120);
+
+    if (!donorName || !country || !['Individual', 'Group'].includes(donorType)) {
+      return jsonResponse_({ success: false, message: 'Required donor fields missing.' });
+    }
+
+    lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    let sheet = spreadsheet.getSheetByName(SHEET_NAME);
+    if (!sheet) { sheet = spreadsheet.insertSheet(SHEET_NAME); }
+
+    if (sheet.getLastRow() === 0) {
+      sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
+      sheet.setFrozenRows(1);
+    }
+
+    sheet.appendRow([
+      new Date(),
+      safeCell_(donorName),
+      donorType,
+      safeCell_(donorType === 'Group' ? organization : ''),
+      safeCell_(country),
+      safeCell_(amount),
+      safeCell_(source)
+    ]);
+
+    SpreadsheetApp.flush();
+    return jsonResponse_({ success: true, message: 'Donor record saved.', sheet: SHEET_NAME, row: sheet.getLastRow() });
+  } catch (error) {
+    return jsonResponse_({ success: false, message: String(error && error.message ? error.message : 'Error') });
+  } finally {
+    if (lock) { try { lock.releaseLock(); } catch(e){} }
+  }
+}
+
+function clean_(val, maxLen) { return String(val || '').replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, maxLen); }
+function safeCell_(val) { const text = String(val || ''); return /^[=+\-@]/.test(text) ? "'" + text : text; }
+function jsonResponse_(obj) { return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); }</code></pre>
+                    </div>
+
+                    <!-- PART B: QUIZ SCORE SYNC SCRIPT WITH 5-MIN RATE LIMITER -->
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">B</span>
+                            Assessment Quiz Synchronization Script (With 5-Min Cooldown Rate-Limiter)
+                        </h4>
+                        <p class="text-slate-600">Create another script project or sheet tab titled <strong class="text-slate-800">Quiz Scores</strong> and deploy the following code. This code enforces a mandatory 5-minute submission gap per student to prevent spam submissions:</p>
+                        <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs overflow-x-auto font-mono leading-relaxed max-h-56"><code>/**
+ * Student Assessment Quiz Score Integrator with 5-Minute Rate Limiting
+ */
+const SPREADSHEET_ID = '1iXfkwDMLDbVty8ph7nyIJ3CTinTWKDhH67XDLoe0Few';
+const SHEET_NAME = 'Quiz Scores';
+const HEADERS = ['Timestamp', 'Student Name', 'Grade & Section', 'Score', 'Total Questions', 'Percentage', 'Status'];
+const COOLDOWN_MINUTES = 5;
+
+function doPost(e) {
+  let lock;
+  try {
+    const params = (e && e.parameter) ? e.parameter : {};
+    const studentName = clean_(params.studentName, 150);
+    const section = clean_(params.section, 100);
+    const score = clean_(params.score, 10);
+    const total = clean_(params.totalQuestions, 10);
+    const percentage = clean_(params.percentage, 20);
+
+    if (!studentName || !section) {
+      return jsonResponse_({ success: false, message: 'Student Name and Section are required.' });
+    }
+
+    // Server-side Rate Limiting check via CacheService (5 minutes = 300 seconds)
+    const cache = CacheService.getScriptCache();
+    const cacheKey = 'quiz_sub_' + encodeURIComponent((studentName + '_' + section).toLowerCase().replace(/\s+/g, ''));
+    const lastSubTime = cache.get(cacheKey);
+
+    if (lastSubTime) {
+      const remainingSec = Math.ceil((parseInt(lastSubTime) + (COOLDOWN_MINUTES * 60 * 1000) - Date.now()) / 1000);
+      if (remainingSec > 0) {
+        return jsonResponse_({ 
+          success: false, 
+          rateLimited: true,
+          message: 'Multiple submissions restricted. Please wait ' + Math.ceil(remainingSec / 60) + ' more minute(s) before submitting again.' 
+        });
+      }
+    }
+
+    lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    let sheet = spreadsheet.getSheetByName(SHEET_NAME);
+    if (!sheet) { sheet = spreadsheet.insertSheet(SHEET_NAME); }
+
+    if (sheet.getLastRow() === 0) {
+      sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
+      sheet.setFrozenRows(1);
+    }
+
+    const numScore = parseFloat(score);
+    const statusStr = numScore >= 10 ? "PASSED" : "NEEDS IMPROVEMENT";
+
+    sheet.appendRow([
+      new Date(),
+      safeCell_(studentName),
+      safeCell_(section),
+      numScore,
+      parseFloat(total),
+      percentage + "%",
+      statusStr
+    ]);
+
+    // Store timestamp in cache for 5 minutes (300 seconds)
+    cache.put(cacheKey, Date.now().toString(), 300);
+
+    SpreadsheetApp.flush();
+    return jsonResponse_({ success: true, message: 'Quiz score synchronized successfully!' });
+  } catch (error) {
+    return jsonResponse_({ success: false, message: String(error.message || 'Error saving quiz score') });
+  } finally {
+    if (lock) { try { lock.releaseLock(); } catch(e){} }
+  }
+}
+
+function clean_(val, maxLen) { return String(val || '').replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, maxLen); }
+function safeCell_(val) { const text = String(val || ''); return /^[=+\-@]/.test(text) ? "'" + text : text; }
+function jsonResponse_(obj) { return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); }</code></pre>
+                    </div>
+
+                    <!-- Step 3: Configure Endpoint URLs -->
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-deped-blue text-white flex items-center justify-center text-xs">C</span>
+                            Connecting Endpoint Web App URLs in HTML JavaScript
+                        </h4>
+                        <p class="text-slate-600 mt-1">Update the URLs inside the JavaScript config object near the bottom of this file:</p>
+                        <pre class="bg-slate-900 text-slate-100 p-3 rounded-xl text-xs overflow-x-auto font-mono mt-2"><code>const DONATION_CONFIG = {
+    GCASH_NUMBER: "0968-7042-059",
+    GOOGLE_APPS_SCRIPT_URL: "PASTE_YOUR_DONATION_WEB_APP_URL_HERE"
+};
+
+const QUIZ_SYNC_CONFIG = {
+    TEACHER_ACCESS_CODE: "access1234",
+    GOOGLE_APPS_SCRIPT_URL: "PASTE_YOUR_QUIZ_SYNC_WEB_APP_URL_HERE",
+    COOLDOWN_MS: 5 * 60 * 1000 // 5 Minutes restriction
+};</code></pre>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400 space-y-2">
+            <p class="font-semibold text-slate-300">Don Vicente Rama Memorial National High School</p>
+            <p>Macopa Street, Basak Cebu City • Schools Division of Cebu City • South District 1</p>
+            <p class="pt-2 text-[11px] text-slate-500">Powered by: <span style="color:lightblue;"><strong>DeskBhuddy</strong></span> | IT solutions created just for you. © 2026 Interactive Entrepreneurship Learning Portal.</p>
+        </div>
+    </footer>
+
+    <!-- ================================================================= -->
+    <!-- INTERACTIVE GCASH DONATION MODAL CONTAINER                        -->
+    <!-- ================================================================= -->
+    <div id="donationModal" class="fixed inset-0 z-50 hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="donationModalTitle">
+        <!-- Backdrop Overlay -->
+        <div class="fixed inset-0 donation-modal-overlay" onclick="closeDonationModal()"></div>
+
+        <!-- Modal Wrapper -->
+        <div class="min-h-screen px-4 text-center flex items-center justify-center p-4">
+            <div class="inline-block w-full max-w-lg p-6 sm:p-8 my-8 overflow-hidden text-left align-middle transition-all transform bg-white rounded-3xl shadow-2xl relative z-10 border border-slate-200">
+                
+                <!-- Close Button -->
+                <button id="closeDonationModalBtn" onclick="closeDonationModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center transition" aria-label="Close Donation Modal">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+
+                <!-- Modal Header -->
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-12 h-12 rounded-2xl donation-badge-gcash flex items-center justify-center text-2xl font-bold shadow-md">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">Official GCash Portal</span>
+                        <h3 id="donationModalTitle" class="text-xl sm:text-2xl font-extrabold text-slate-900 font-display">Support This Website</h3>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
+                    "Any amount of donation is greatly appreciated to support this website." Your contributions directly assist in maintaining server hosting, domain upkeep, and adding new interactive features for Grade 12 Senior High School learners.
+                </p>
+
+                <!-- GCash Details Card -->
+                <div class="bg-gradient-to-br from-blue-900 to-deped-darkblue text-white rounded-2xl p-5 mb-5 shadow-lg relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 opacity-10 text-white text-8xl">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] uppercase font-bold text-deped-gold tracking-wider">GCash Destination Account</span>
+                        <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-blue-200">Philippines</span>
+                    </div>
+
+                    <div class="text-2xl sm:text-3xl font-mono font-extrabold tracking-wider text-white my-1" id="gcashNumberDisplay">
+                        0968-7042-059
+                    </div>
+                    <p class="text-xs text-blue-200">Account Name: Don Vicente Rama Memorial High School Portal</p>
+
+                    <!-- Copy Number Button -->
+                    <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                        <button id="copyGcashNumberBtn" onclick="copyGcashNumber()" class="bg-deped-gold hover:bg-yellow-400 text-deped-darkblue font-bold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            <i class="fa-regular fa-copy"></i> Copy GCash Number
+                        </button>
+                        <span id="copySuccessMsg" class="text-xs text-emerald-300 font-medium hidden">
+                            <i class="fa-solid fa-circle-check"></i> Copied to clipboard!
+                        </span>
+                    </div>
+                </div>
+
+                <!-- QR Notice -->
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center mb-5">
+                    <p class="text-[11px] text-slate-500 flex items-center justify-center gap-1.5 font-medium">
+                        <i class="fa-solid fa-qrcode text-deped-blue"></i> Prefer scanning? Send via official GCash app to phone number above.
+                    </p>
+                </div>
+
+                <!-- Step-by-step Instructions -->
+                <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 mb-5">
+                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-list-check text-deped-blue"></i> How to Donate & Submit Record:
+                    </h4>
+                    <ol class="text-xs text-slate-600 space-y-1 list-decimal list-inside font-normal">
+                        <li>Open your <strong>GCash Application</strong> on your smartphone.</li>
+                        <li>Select <strong>Send Money</strong> or <strong>Express Send</strong>.</li>
+                        <li>Enter recipient number: <strong class="text-slate-900 font-mono">0968-7042-059</strong>.</li>
+                        <li>Verify recipient details in GCash before confirming transaction.</li>
+                        <li>Enter your intended donation amount and complete payment.</li>
+                        <li>Return to this page and fill out the record form below to log your entry.</li>
+                    </ol>
+                </div>
+
+                <!-- Donor Information Form Aligned with ExamShuffle Pro Backend Schema -->
+                <form id="donationForm" onsubmit="submitDonationRecord(event)" class="space-y-4">
+                    <div>
+                        <label for="donorNameInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Donor's Name <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" id="donorNameInput" maxlength="160" required placeholder="Enter your name" class="w-full text-xs sm:text-sm p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none transition">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label for="donorTypeSelect" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                Donor Type <span class="text-rose-500">*</span>
+                            </label>
+                            <select id="donorTypeSelect" onchange="toggleOrganizationField()" class="w-full text-xs sm:text-sm p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none transition bg-white">
+                                <option value="Individual">Individual</option>
+                                <option value="Group">Group / Organization</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="countryInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                Country <span class="text-rose-500">*</span>
+                            </label>
+                            <input type="text" id="countryInput" maxlength="100" required value="Philippines" placeholder="e.g. Philippines" class="w-full text-xs sm:text-sm p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none transition">
+                        </div>
+                    </div>
+
+                    <div id="organizationFieldWrapper" class="hidden">
+                        <label for="donorOrgInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Organization / Group Name <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" id="donorOrgInput" maxlength="200" placeholder="Enter group or organization name" class="w-full text-xs sm:text-sm p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none transition">
+                    </div>
+
+                    <div>
+                        <label for="donationAmountInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Donation Amount (PHP) <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-500">
+                                ₱ PHP
+                            </span>
+                            <input type="number" id="donationAmountInput" step="0.01" min="0.01" max="1000000" required placeholder="Enter any amount (e.g. 50.00)" class="w-full text-xs sm:text-sm pl-16 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-deped-blue outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Verification Notice -->
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-900 leading-relaxed flex items-start gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-sm mt-0.5"></i>
+                        <span>
+                            <strong>Notice:</strong> Submitting this form records your declared donation information. It does not independently verify payment or confirm that funds have been received.
+                        </span>
+                    </div>
+
+                    <!-- Dynamic Status Alert Box -->
+                    <div id="donationStatusMessage" class="hidden p-3 rounded-xl text-xs font-medium leading-relaxed"></div>
+
+                    <!-- Submission Button -->
+                    <button type="submit" id="submitDonationRecordBtn" class="w-full bg-deped-blue hover:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Donation Record
+                    </button>
+                </form>
+
+                <!-- Data Privacy Disclaimer -->
+                <div class="mt-4 pt-3 border-t text-[10px] text-slate-400 text-center">
+                    Privacy Notice: Submitted name and declared amount are stored securely in a restricted Google Sheets record for educational administration only.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+<!--
+    <script>
+        
+    </script>
+-->
+    <script src="script.js"></script>
+</body>
+</html>
